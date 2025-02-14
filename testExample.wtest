@@ -1,4 +1,6 @@
 import example.pepita
+import torneoMagos.*
+
 
 describe "group of tests for pepita" {
 

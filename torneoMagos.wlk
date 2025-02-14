@@ -1,5 +1,7 @@
 /*
-commandPalette, wollok REPL, var mago = new Mago()
+commandPalette, wollok REPL
+const brian = new Mago(poderInnato =2, nombre= "Brian")
+
 clientes.count{each => each == "Brian"}
 
 OcurrencesOf???
@@ -35,6 +37,7 @@ method totalComisiones() = operacionesCerradas.sum({operacion => operacion.comis
 [2,3,4].any({elem => elem == 3})
 numeros.contains(23)  
 numeros.isEmpty()
+paridad -> (numero %  2) == 0
 
 const telefonos = new Dictionary()
 >>> telefonos.put("ricky", "15-21...")
@@ -48,12 +51,62 @@ telefonos.forEach { persona, tel => console.println(persona + " tiene " + tel) }
 [10, 12].map { n => n / 2 } // [5,6]
 */
 
+const brian = new Mago(poderInnato =2, resistenciaMagica = 20, nombre= "Brian", listaObjetos = [sauco])
+const eliana = new Mago(poderInnato =2, resistenciaMagica = 20, nombre= "Eliana", listaObjetos = [sauco])
+const sauco = new Varita()
+
 class Mago
 {
+    var property listaObjetos = []
     var property poderInnato
-    var property poderTotal  
+    var property resistenciaMagica 
+    const property nombre
 
-    method agregarPoder(){
-        self.poderInnato() + 2
+    method sumatoriaPoderObjetos() = self.listaObjetos().sum({objeto => objeto.poderAportado(self)})
+       
+    method poderTotal(){
+        return self.sumatoriaPoderObjetos() * self.poderInnato()
     }
+    method agregarObjeto(elemento){
+        self.listaObjetos().add(elemento)
+    }
+}
+
+class ObjetoMagico {
+    var property valorBase
+    method poderAportado(mago)
+}
+
+class Varita inherits ObjetoMagico(valorBase = 2){
+    
+    override method poderAportado(mago) {
+        if ((mago.nombre().size() %  2) == 0) {
+            return valorBase * 1.5
+        }
+        else 
+            return valorBase 
+    }
+
+}
+
+class Tunica inherits ObjetoMagico{
+
+    override method poderAportado(mago) {
+        return 2*mago.resistenciaMagica() 
+    }
+}
+
+class TunicaEpica inherits ObjetoMagico{
+
+    override method poderAportado(mago) {
+        return 2*mago.resistenciaMagica() + 10 
+    }
+}
+
+class Amuleto {
+    method poderAportado(mago) = 200
+}
+
+object ojota{
+    method poderAportado(mago) = 10* mago.nombre().size()
 }
